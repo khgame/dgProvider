@@ -1,6 +1,6 @@
-export * from './receipt'
+export * from './receiptDealer'
 
-import {IReceiptDealer} from "./receipt";
+import {IReceiptDealer} from "./receiptDealer";
 
 export abstract class Provider<TMsgType> {
 
@@ -11,7 +11,7 @@ export abstract class Provider<TMsgType> {
 
     }
 
-    async start(nonceStart: number, cbError: (nonce: number) => number): Promise<any> {
+    async start(nonceStart: number): Promise<any> {
         await this.hookEvents(
             nonceStart,
             async (nonce: number, msg: TMsgType) => {
