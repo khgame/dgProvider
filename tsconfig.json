@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "CommonJS",
+    "outDir": "lib",
+    "strict": true,
+    "sourceMap": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    //    "allowSyntheticDefaultImports": true,
+    "declaration": true, // `--declaration` are not allowed with `--allowJs` @discussion https://github.com/Microsoft/TypeScript/issues/7546
+    "experimentalDecorators": true,
+    "lib": [
+      "es6",
+      "dom"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

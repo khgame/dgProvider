@@ -1,3 +1,13 @@
+# Dir
+**/.DS_Store
+**/.idea
+**/.vscode
+
+# Build
+build
+_*/
+lib/
+
 # Logs
 logs
 *.log

@@ -1,0 +1,25 @@
+{
+  "name": "@khgame/dg-provider",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npx mocha test/*test.js --reporter spec",
+    "build": "rimraf ./lib/ && npx tsc && cp LICENSE ./lib && cp README.md ./lib",
+    "lint:fix": "npx tslint --fix --project .",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "bagaking (kinghand@foxmail.com)",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "rimraf": "^2.6.3",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.3"
+  }
+}
