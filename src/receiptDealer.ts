@@ -18,11 +18,9 @@ export interface IReceiptDealer {
 
     abortReceipt(receiptId: string): Promise<boolean>;
 
-    parseMsgToReceipt(msg: any): Promise<{ receiptId: string, receiptData: any } | undefined>;
-
 }
 
-export abstract class ReceiptDealer<TMsgType> implements IReceiptDealer {
+export abstract class ReceiptDealer implements IReceiptDealer {
 
     constructor(
         public readonly fnGetReceiptType:
@@ -69,7 +67,5 @@ export abstract class ReceiptDealer<TMsgType> implements IReceiptDealer {
 
     abstract async commitReceipt(receiptId: string, receiver: string, texRate: number): Promise<boolean>; // == confirm / ctConfirm
 
-    abstract async abortReceipt(receiptId: string): Promise<boolean>; // +
-
-    abstract async parseMsgToReceipt(msg: TMsgType): Promise<{ receiptId: string, receiptData: any } | undefined>;
+    abstract async abortReceipt(receiptId: string): Promise<boolean>;
 }

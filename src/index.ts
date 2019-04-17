@@ -11,38 +11,31 @@ export abstract class Provider<TMsgType> {
 
     }
 
-    async start(nonceStart: number): Promise<any> {
+    async start(nonceStart: number, onError?: (nonce: number, receiptId: string, receiptData: any, ex: Error) => any): Promise<any> {
         await this.hookEvents(
             nonceStart,
-            async (nonce: number, msg: TMsgType) => {
+            async (nonce: number, receiptId: string, receiptData: any) => {
                 if (!this.cbUpdateNonce(nonce)) {
-                    await this.exit();
+                    await this.terminate();
                 }
                 try {
-                    await this.triggerHook(nonce, msg)
+                    await this.receiptDealer.receiptPrepared(receiptId, receiptData);
                 } catch (ex) {
-
+                    if(onError) {
+                        onError(nonce, receiptId, receiptData, ex);
+                    }
                 }
             }
         );
     } // listen to chain and call triggerHook here;
 
-    async triggerHook(nonce: number, msg: TMsgType) {
-        const parsedMsg = await this.receiptDealer.parseMsgToReceipt(msg);
-        if (!parsedMsg) {
-            return;
-        }
-        const {receiptId, receiptData} = parsedMsg;
-        await this.receiptDealer.receiptPrepared(receiptId, receiptData);
-    }
-
-    abstract async exit(): Promise<any>; // handle exit events
+    abstract async terminate(): Promise<any>; // handle exit events
 
     abstract async hset(hKey: string, key: string, value: string): Promise<boolean>;
 
     abstract async hookEvents(
         nonceStart: number,
-        push: (nonce: number, msg: TMsgType) => Promise<void>
+        push: (nonce: number, receiptId: string, receiptData: any) => Promise<void>
     ): Promise<any>;
 
 
