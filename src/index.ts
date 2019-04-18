@@ -14,14 +14,18 @@ export abstract class Provider<TMsgType> {
     async start(nonceStart: number, onError?: (nonce: number, receiptId: string, receiptData: any, ex: Error) => any): Promise<any> {
         await this.hookEvents(
             nonceStart,
-            async (nonce: number, receiptId: string, receiptData: any) => {
+            async (nonce: number, receipt: { receiptId: string, receiptData: any } | undefined) => {
                 if (!this.cbUpdateNonce(nonce)) {
                     await this.terminate();
                 }
+                if (!receipt) {
+                    return;
+                }
+                let {receiptId, receiptData} = receipt;
                 try {
                     await this.receiptDealer.receiptPrepared(receiptId, receiptData);
                 } catch (ex) {
-                    if(onError) {
+                    if (onError) {
                         onError(nonce, receiptId, receiptData, ex);
                     }
                 }
@@ -35,7 +39,7 @@ export abstract class Provider<TMsgType> {
 
     abstract async hookEvents(
         nonceStart: number,
-        push: (nonce: number, receiptId: string, receiptData: any) => Promise<void>
+        push: (nonce: number, receipt: { receiptId: string, receiptData: any } | undefined) => Promise<void>
     ): Promise<any>;
 
 
