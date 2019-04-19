@@ -17,13 +17,33 @@ Those implementations is aimed at provide the concrete usages to a **remote serv
 there are two kinds of Processing procedure:
 
 - hset: set an key-value pair of a scope
-- receipt: include three method corresponding to three phases of transactions. 
-    - hookPrepare 
+- receipt: include three method corresponding to three phases of transactions.
+    - hookPrepare
     - commit
     - abort
-    
+
 #### Provide's interfaces
 
+FontEnd
 
+- eosplayer.transcal
+- eosplayer.sign
+- eosplayer.call
+- eosplayer.logout
+- eosplayer.login
+- eosplayer.getBalance
+- eosplayer.chain.checkTableItem
+- eosplayer.chain.checkTable
+- eosplayer.setNetConf
+- eosplayer.switchNetwork
+
+BackEnd
+
+- checkTableItem
+- validateSign
+- giftcode
+- call tradeuni
+- call confirm
+- call ctconfirm
 #### Remote Service
 
