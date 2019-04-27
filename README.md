@@ -24,29 +24,10 @@ there are two kinds of Processing procedure:
 
 #### Provide's interfaces
 
-FontEnd
-
-- eosplayer.transcal
-- eosplayer.sign
-- eosplayer.call
-- eosplayer.logout
-- eosplayer.login
-- eosplayer.getBalance
-- eosplayer.chain.checkTableItem
-- eosplayer.chain.checkTable
-- eosplayer.setNetConf
-- eosplayer.switchNetwork
-
-BackEnd
-
-- checkTableItem
-- validateSign
-- giftcode
-- call tradeuni
-- call confirm
-- call ctconfirm
-
 #### Remote Service
+
+Interface files in the directory [./src/remoteService](./src/remoteService) can be used as references.  
+By the way, if the remote service is implemented using js/ts, you can also import these interfaces directly into the project.  
 
 ##### Get
 
@@ -91,7 +72,12 @@ BackEnd
     - receipt
         - checkReceipt(receiptId)
         > get receipt by receiptId
-        `{ "result": {receiptId, status, tokenSym, quantity, receiver, texRate} }`
+        `{ "result": {id, status, creator, sym, quantity, receiver, tariff, create_at, update_at} }`
+        - listReceipts(start, limit, option?, sort?)
+        > get a list of receipts  
+        option : `{status?, creator?, sym?, receiver?}`  
+        sort : `{quantity?, create_at?, update_at?}`
+        
     - [optional] validateSign : (login)
 
 ##### SET
@@ -106,17 +92,22 @@ BackEnd
         > user transfer tokens to another
     - receipt
         - createReceipt(receiptId, tokenSym, quantity)
-        > decline some tokens and create an receipt
+        > pay tokens and create an receipt
     
 
 - Game server side
     - hset
         - hset(scope, key, val)
+        > set value by scope and key
         - hinc(scope, key, val)
+        > inc number value by scope and key
         - hdel(scope, key)
+        > del value by scope and key
     - receipt
         - commitReceipt(receiptId, receiver, texRate)
-        - abortReceipt(receiptId)
+        > commit the receipt and send tokens to receiver and official accounts (by logic server)
+        - abortReceipt(receiptId, memo)
+        > abort the receipt and return tokens (by logic server)
     
 
 
