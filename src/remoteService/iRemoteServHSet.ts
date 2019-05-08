@@ -1,5 +1,5 @@
 
-export interface IRemoteServiceHSet {
+export interface IRemoteServiceHSet<TErrorCode> {
 
     /**
      * [GET] all scopes in the service
@@ -44,7 +44,7 @@ export interface IRemoteServiceHSet {
      * @param {string} val
      * @return {Promise<number>} error code
      */
-    hset(scope: string, key: string, val: string): Promise<number>;
+    hset(scope: string, key: string, val: string): Promise<TErrorCode>;
 
     /**
      * [SET] [Serv] inc number value by scope and key
@@ -53,7 +53,7 @@ export interface IRemoteServiceHSet {
      * @param {string} val
      * @return {Promise<number>} error code
      */
-    hinc(scope: string, key: string, val: string): Promise<number>;
+    hinc(scope: string, key: string, val: string): Promise<TErrorCode>;
 
     /**
      * [SET] [Serv] del value by scope and key
@@ -62,6 +62,6 @@ export interface IRemoteServiceHSet {
      * @param {string} val
      * @return {Promise<number>} error code
      */
-    hdel(scope: string, key: string): Promise<number>;
+    hdel(scope: string, key: string): Promise<TErrorCode>;
 
 }

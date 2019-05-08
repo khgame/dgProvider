@@ -1,6 +1,6 @@
 import {IUserContext} from "./iUserContext";
 
-export interface IRemoteServToken {
+export interface IRemoteServToken<TErrorCode> {
 
     /**
      * [GET] check balance of the userIdentity
@@ -17,7 +17,7 @@ export interface IRemoteServToken {
      * @param {string} quantity
      * @return {Promise<number>}
      */
-    charge(userIdentity: string, tokenSym: string, quantity: string): Promise<number>;
+    charge(userIdentity: string, tokenSym: string, quantity: string): Promise<TErrorCode>;
 
     /**
      * [SET] [User] transfer token from one user to another
@@ -28,7 +28,7 @@ export interface IRemoteServToken {
      * @param {string} memo
      * @return {Promise<number>}
      */
-    transfer(ctx: IUserContext,  to: string, tokenSym: string, quantity: string, memo: string): Promise<number>;
+    transfer(ctx: IUserContext,  to: string, tokenSym: string, quantity: string, memo: string): Promise<TErrorCode>;
 
     /**
      * [SET] [User] [Optional] withdraw token from layer 2 to layer 1
@@ -37,6 +37,6 @@ export interface IRemoteServToken {
      * @param {string} quantity
      * @return {Promise<number>}
      */
-    withdraw(ctx: IUserContext,  tokenSym: string, quantity: string): Promise<number>;
+    withdraw(ctx: IUserContext,  tokenSym: string, quantity: string): Promise<TErrorCode>;
 
 }

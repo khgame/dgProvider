@@ -1,7 +1,7 @@
 import {IReceipt} from "./iReceipt";
 import {IUserContext} from "./iUserContext";
 
-export interface IRemoteServiceReceipt {
+export interface IRemoteServiceReceipt<TErrorCode> {
 
     /**
      * [GET] get receipt by receiptId
@@ -33,7 +33,7 @@ export interface IRemoteServiceReceipt {
      * @param {string} quantity
      * @return {Promise<number>} - error code: 0 - success
      */
-    createReceipt(ctx: IUserContext, receiptId: string, sym: string, quantity: string): Promise<IReceipt | undefined>
+    createReceipt(ctx: IUserContext, receiptId: string, sym: string, quantity: string): Promise<TErrorCode>
 
     /**
      * [SET] [Serv] commit the receipt and send tokens to receiver and official accounts (by logic server)
@@ -42,7 +42,7 @@ export interface IRemoteServiceReceipt {
      * @param {number} tariff - the tex rate
      * @return {Promise<number>} - error code: 0 - success
      */
-    commitReceipt(receiptId: string, receiver: string, tariff: number): Promise<number>
+    commitReceipt(receiptId: string, receiver: string, tariff: number): Promise<TErrorCode>
 
     /**
      * [SET] [Serv] abort the receipt and return tokens (by logic server)
@@ -50,5 +50,5 @@ export interface IRemoteServiceReceipt {
      * @param {string} memo
      * @return {Promise<number>} - error code: 0 - success
      */
-    abortReceipt(receiptId: string, memo: string): Promise<number>
+    abortReceipt(receiptId: string, memo: string): Promise<TErrorCode>
 }
