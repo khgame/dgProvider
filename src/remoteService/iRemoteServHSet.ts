@@ -38,7 +38,7 @@ export interface IRemoteServiceHSet {
     hgetall(scope: string) : Promise<any>;
 
     /**
-     * [SET] set value by scope and key
+     * [SET] [Serv] set value by scope and key
      * @param {string} scope
      * @param {string} key
      * @param {string} val
@@ -47,7 +47,7 @@ export interface IRemoteServiceHSet {
     hset(scope: string, key: string, val: string): Promise<number>;
 
     /**
-     * [SET] inc number value by scope and key
+     * [SET] [Serv] inc number value by scope and key
      * @param {string} scope
      * @param {string} key
      * @param {string} val
@@ -56,7 +56,7 @@ export interface IRemoteServiceHSet {
     hinc(scope: string, key: string, val: string): Promise<number>;
 
     /**
-     * [SET] del value by scope and key
+     * [SET] [Serv] del value by scope and key
      * @param {string} scope
      * @param {string} key
      * @param {string} val

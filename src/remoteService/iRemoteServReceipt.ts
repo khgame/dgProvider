@@ -1,4 +1,5 @@
 import {IReceipt} from "./iReceipt";
+import {IUserContext} from "./iUserContext";
 
 export interface IRemoteServiceReceipt {
 
@@ -25,16 +26,17 @@ export interface IRemoteServiceReceipt {
         ): Promise<IReceipt[]>
 
     /**
-     * [SET] pay tokens and create an receipt
+     * [SET] [User] pay tokens and create an receipt
+     * @param {IUserContext} ctx
      * @param {string} receiptId
      * @param {string} sym
      * @param {string} quantity
      * @return {Promise<number>} - error code: 0 - success
      */
-    createReceipt(receiptId: string, sym: string, quantity: string): Promise<IReceipt | undefined>
+    createReceipt(ctx: IUserContext, receiptId: string, sym: string, quantity: string): Promise<IReceipt | undefined>
 
     /**
-     * [SET] commit the receipt and send tokens to receiver and official accounts (by logic server)
+     * [SET] [Serv] commit the receipt and send tokens to receiver and official accounts (by logic server)
      * @param {string} receiptId
      * @param {string} receiver
      * @param {number} tariff - the tex rate
@@ -43,7 +45,7 @@ export interface IRemoteServiceReceipt {
     commitReceipt(receiptId: string, receiver: string, tariff: number): Promise<number>
 
     /**
-     * [SET] abort the receipt and return tokens (by logic server)
+     * [SET] [Serv] abort the receipt and return tokens (by logic server)
      * @param {string} receiptId
      * @param {string} memo
      * @return {Promise<number>} - error code: 0 - success
