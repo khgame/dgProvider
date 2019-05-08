@@ -1,6 +1,6 @@
 {
   "name": "@khgame/dg-provider",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "typescript": "^3.4.3"
   },
   "files": [
-    "lib"
+    "lib",
+    "remote"
   ]
 }

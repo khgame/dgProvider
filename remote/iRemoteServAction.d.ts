@@ -1,5 +1,5 @@
 
-export interface IRemoteServiceAction {
+export declare interface IRemoteServiceAction {
 
     /**
      * [GET] the count of all performed actions

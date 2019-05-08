@@ -1,5 +1,5 @@
 
-export interface IRemoteServiceHSet<TErrorCode> {
+export declare interface IRemoteServiceHSet<TErrorCode> {
 
     /**
      * [GET] all scopes in the service

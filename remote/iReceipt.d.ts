@@ -1,4 +1,4 @@
-export interface IReceipt {
+export declare interface IReceipt {
     /**
      * id of the receipt
      */

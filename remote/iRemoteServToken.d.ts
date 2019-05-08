@@ -1,6 +1,6 @@
 import {IUserContext} from "./iUserContext";
 
-export interface IRemoteServToken<TErrorCode> {
+export declare interface IRemoteServToken<TErrorCode> {
 
     /**
      * [GET] check balance of the userIdentity

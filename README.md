@@ -26,7 +26,7 @@ there are two kinds of Processing procedure:
 
 #### Remote Service
 
-Interface files in the directory [./src/remoteService](./src/remoteService) can be used as references.  
+Interface files in the directory [./src/remoteService](remoteService) can be used as references.  
 By the way, if the remote service is implemented using js/ts, you can also import these interfaces directly into the project.  
 
 ##### Get

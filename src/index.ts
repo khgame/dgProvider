@@ -1,5 +1,5 @@
 export * from './receiptDealer'
-export * from './remoteService'
+// export * from './remoteService'
 
 import {IReceiptDealer} from "./receiptDealer";
 
