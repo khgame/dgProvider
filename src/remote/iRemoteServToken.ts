@@ -8,16 +8,7 @@ export interface IRemoteServToken<TErrorCode> {
      * @param {string} tokenSym
      * @return {Promise<number | string>}
      */
-    balance(userIdentity: string, tokenSym: string): Promise<number|string>;
-
-    /**
-     * [SET] [Serv] [Optional] charge token from layer 1 to layer 2
-     * @param {string} userIdentity
-     * @param {string} tokenSym
-     * @param {string} quantity
-     * @return {Promise<number>}
-     */
-    charge(userIdentity: string, tokenSym: string, quantity: string): Promise<TErrorCode>;
+    balance(userIdentity: string, tokenSym: string): Promise<number | string>;
 
     /**
      * [SET] [User] transfer token from one user to another
@@ -28,7 +19,16 @@ export interface IRemoteServToken<TErrorCode> {
      * @param {string} memo
      * @return {Promise<number>}
      */
-    transfer(ctx: IUserContext,  to: string, tokenSym: string, quantity: string, memo: string): Promise<TErrorCode>;
+    transfer(ctx: IUserContext, to: string, tokenSym: string, quantity: string, memo: string): Promise<TErrorCode>;
+
+    /**
+     * [SET] [Serv] [Optional] charge token from layer 1 to layer 2
+     * @param {string} userIdentity
+     * @param {string} tokenSym
+     * @param {string} quantity
+     * @return {Promise<number>}
+     */
+    charge?(userIdentity: string, tokenSym: string, quantity: string): Promise<TErrorCode>;
 
     /**
      * [SET] [User] [Optional] withdraw token from layer 2 to layer 1
@@ -37,6 +37,16 @@ export interface IRemoteServToken<TErrorCode> {
      * @param {string} quantity
      * @return {Promise<number>}
      */
-    withdraw(ctx: IUserContext,  tokenSym: string, quantity: string): Promise<TErrorCode>;
+    withdraw?(ctx: IUserContext, tokenSym: string, quantity: string): Promise<TErrorCode>;
+
+    /**
+     * [SET] [User] [Optional] withdrawCommit token
+     * this method required when the user can have only one withdraw order at the same time
+     * @param {string} userIdentity
+     * @param {string} tokenSym
+     * @param {string} quantity
+     * @return {Promise<number>}
+     */
+    withdrawCommit?(userIdentity: string, tokenSym: string, quantity: string): Promise<TErrorCode>;
 
 }
