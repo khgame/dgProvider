@@ -1,8 +1,4 @@
-export enum ReceiptState {
-    Prepared = 0,
-    Committed = 1,
-    Aborted = 11
-}
+import {ReceiptState} from "./model/iReceipt";
 
 export interface IReceiptDealer {
 

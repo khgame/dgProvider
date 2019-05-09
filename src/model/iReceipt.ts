@@ -1,7 +1,7 @@
-export enum ReceiptStatus {
-    PREPARED = 0,
-    COMMITTED = 1,
-    ABORTED = 2,
+export enum ReceiptState {
+    Prepared = 0,
+    Committed = 1,
+    Aborted = 11
 }
 
 export interface IReceipt {
@@ -13,7 +13,7 @@ export interface IReceipt {
     /**
      * receipts status: 0 - prepared, 1 - committed, 2 - aborted
      */
-    status: ReceiptStatus
+    status: ReceiptState
 
     /**
      * identity of user who created and paid the receipt

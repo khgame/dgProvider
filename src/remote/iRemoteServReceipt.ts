@@ -1,4 +1,4 @@
-import {IReceipt} from "./iReceipt";
+import {IReceipt} from "../model/iReceipt";
 import {IUserContext} from "./iUserContext";
 
 export interface IRemoteServiceReceipt<TErrorCode> {

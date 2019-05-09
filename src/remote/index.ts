@@ -1,4 +1,4 @@
-export * from "./iReceipt"
+export * from "../model/iReceipt"
 export * from "./iRemoteServAction"
 export * from "./iRemoteServReceipt"
 export * from "./iRemoteServHSet"
