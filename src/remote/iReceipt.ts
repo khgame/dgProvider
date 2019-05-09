@@ -1,3 +1,9 @@
+export enum ReceiptStatus {
+    PREPARED = 0,
+    COMMITTED = 1,
+    ABORTED = 2,
+}
+
 export interface IReceipt {
     /**
      * id of the receipt
@@ -7,7 +13,7 @@ export interface IReceipt {
     /**
      * receipts status: 0 - prepared, 1 - committed, 2 - aborted
      */
-    status: number
+    status: ReceiptStatus
 
     /**
      * identity of user who created and paid the receipt
