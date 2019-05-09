@@ -1,7 +1,7 @@
 import {IReceipt} from "./iReceipt";
 import {IUserContext} from "./iUserContext";
 
-export declare interface IRemoteServiceReceipt<TErrorCode> {
+export interface IRemoteServiceReceipt<TErrorCode> {
 
     /**
      * [GET] get receipt by receiptId
