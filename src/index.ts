@@ -6,7 +6,7 @@ import {IReceiptDealer} from "./receiptDealer";
 export abstract class Provider<TMsgType> {
 
     constructor(
-        public readonly cbUpdateNonce: (nonce: number) => boolean,
+        public readonly cbUpdateNonce: (nonce: number) => Promise<boolean>,
         public readonly receiptDealer: IReceiptDealer
     ) {
 
@@ -16,7 +16,7 @@ export abstract class Provider<TMsgType> {
         await this.hookEvents(
             nonceStart,
             async (nonce: number, receipt: { receiptId: string, receiptData: any } | undefined) => {
-                if (!this.cbUpdateNonce(nonce)) {
+                if (!await this.cbUpdateNonce(nonce)) {
                     await this.terminate();
                 }
                 if (!receipt) {
