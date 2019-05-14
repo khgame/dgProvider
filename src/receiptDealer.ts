@@ -1,10 +1,19 @@
 import {ReceiptState} from "./model/iReceipt";
 
+export enum ReceiptErrorCode {
+    BAD_OPERATION = -1, // when didn't enter the logic
+    FORBIDDEN = -2, // when validate failed
+    INTERNAL_ERROR = -3, // when error before write
+    OK = 0, // when success
+    WRITE_ERROR = 1, // when some write logic was passed, and then failed
+    RPC_ERROR = 2, // when remote call happen, and then failed
+}
+
 export interface IReceiptDealer {
 
     fnGetReceiptType: (receiptId: string) => Promise<"buy" | "trade">;
-    fnDealBuyReceipt: (receiptId: string, receiptData: any) => Promise<boolean>;
-    fnDealTradeReceipt: (receiptId: string, receiptData: any, fnReceiveTransfer: (user: string, texRate: number) => void) => Promise<boolean>;
+    fnDealBuyReceipt: (receiptId: string, receiptData: any) => Promise<ReceiptErrorCode | number>;
+    fnDealTradeReceipt: (receiptId: string, receiptData: any, fnReceiveTransfer: (user: string, texRate: number) => void) => Promise<ReceiptErrorCode>;
 
     receiptPrepared(receiptId: string, receiptData: any): Promise<void>;
 
@@ -22,9 +31,9 @@ export abstract class ReceiptDealer implements IReceiptDealer {
         public readonly fnGetReceiptType:
             (receiptId: string) => Promise<"buy" | "trade">,
         public readonly fnDealBuyReceipt:
-            (receiptId: string, receiptData: any) => Promise<boolean>,
+            (receiptId: string, receiptData: any) => Promise<ReceiptErrorCode | number>,
         public readonly fnDealTradeReceipt:
-            (receiptId: string, receiptData: any, fnReceiveTransfer: (user: string, texRate: number) => void) => Promise<boolean>,
+            (receiptId: string, receiptData: any, fnReceiveTransfer: (user: string, texRate: number) => void) => Promise<ReceiptErrorCode>,
     ) {
 
     }
@@ -50,10 +59,12 @@ export abstract class ReceiptDealer implements IReceiptDealer {
                 }
 
                 const tradeResult = await this.fnDealTradeReceipt(receiptId, receiptData, fnReceiveTransfer);
-                if (tradeResult) {
+                if(tradeResult < 0) {
+                    await this.abortReceipt(receiptId);
+                } else if (tradeResult === ReceiptErrorCode.OK) {
                     await this.commitReceipt(receiptId, transferBlob.user, transferBlob.texRate);
                 } else {
-                    await this.abortReceipt(receiptId);
+                    // do nothing
                 }
                 break;
         }
