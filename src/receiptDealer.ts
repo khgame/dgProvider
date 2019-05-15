@@ -42,10 +42,12 @@ export abstract class ReceiptDealer implements IReceiptDealer {
         switch (await this.fnGetReceiptType(receiptId)) {
             case "buy":
                 const buyResult = await this.fnDealBuyReceipt(receiptId, receiptData);
-                if (buyResult) {
-                    await this.commitReceipt(receiptId, "", 0);
-                } else {
+                if(buyResult < 0) {
                     await this.abortReceipt(receiptId);
+                } else if (buyResult === ReceiptErrorCode.OK) {
+                    await this.commitReceipt(receiptId, "", 10000);
+                } else {
+                    // do nothing
                 }
                 break;
             case "trade":
@@ -72,7 +74,7 @@ export abstract class ReceiptDealer implements IReceiptDealer {
 
     abstract async checkReceiptState(receiptId: string): Promise<ReceiptState>;
 
-    abstract async commitReceipt(receiptId: string, receiver: string, texRate: number): Promise<boolean>; // == confirm / ctConfirm
+    abstract async commitReceipt(receiptId: string, receiver: string, tariff: number): Promise<boolean>; // == confirm / ctConfirm
 
     abstract async abortReceipt(receiptId: string): Promise<boolean>;
 }
