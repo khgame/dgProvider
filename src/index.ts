@@ -1,5 +1,6 @@
 export * from './receiptDealer'
 export * from './remote'
+export * from './types/tQuantity'
 
 import {IReceiptDealer} from "./receiptDealer";
 
