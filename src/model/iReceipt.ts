@@ -1,7 +1,9 @@
 export enum ReceiptState {
     Prepared = 0,
     Committed = 1,
-    Aborted = 11
+    Aborted = 11,
+    Finished = 21,
+    Canceled = 22,
 }
 
 export interface IReceipt {
